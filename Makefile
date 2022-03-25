@@ -6,6 +6,7 @@
 update:; forge update
 
 # Build & test
+deps :; git submodule update --init --recursive
 build  :; forge build
 test   :; forge test
 trace   :; forge test -vvv
