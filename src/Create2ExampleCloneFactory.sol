@@ -8,7 +8,7 @@ contract Create2ExampleCloneFactory {
     using Create2ClonesWithImmutableArgs for address;
 
     /// @dev Internal mapping to track the next seed to be used by an EOA.
-    mapping(address => bytes32) internal nextSeeds;
+    mapping(address => uint256) internal nextSeeds;
     ExampleClone public implementation;
 
     constructor(ExampleClone implementation_) {
@@ -21,7 +21,7 @@ contract Create2ExampleCloneFactory {
         uint64 param3,
         uint8 param4
     ) external returns (ExampleClone clone) {
-        bytes32 seed = nextSeeds[tx.origin];
+        uint256 seed = nextSeeds[tx.origin]++;
         bytes32 salt = keccak256(abi.encode(tx.origin, seed));
         bytes memory data = abi.encodePacked(param1, param2, param3, param4);
         clone = ExampleClone(address(implementation).clone(salt, data));
@@ -35,7 +35,7 @@ contract Create2ExampleCloneFactory {
         view
         returns (address predicted)
     {
-        bytes32 seed = nextSeeds[tx.origin];
+        uint256 seed = nextSeeds[tx.origin];
         bytes32 salt = keccak256(abi.encode(tx.origin, seed));
         (uint256 creationPtr, uint256 creationSize) = implementation
             .cloneCreationCode(data);
