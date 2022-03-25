@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 /// @title ClonesWithImmutableArgs
 /// @author wighawag, zefram.eth
 /// @notice Enables creating clone contracts with immutable args
-library ClonesWithImmutableArgs {
+library Create2ClonesWithImmutableArgs {
     error CreateFail();
 
     function cloneCreationCode(address implementation, bytes memory data)

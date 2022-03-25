@@ -2,10 +2,10 @@
 pragma solidity ^0.8.4;
 
 import { ExampleClone } from "./ExampleClone.sol";
-import { ClonesWithImmutableArgs } from "./Create2ClonesWithImmutableArgs.sol";
+import { Create2ClonesWithImmutableArgs } from "./Create2ClonesWithImmutableArgs.sol";
 
 contract Create2ExampleCloneFactory {
-    using ClonesWithImmutableArgs for address;
+    using Create2ClonesWithImmutableArgs for address;
 
     /// @dev Internal mapping to track the next seed to be used by an EOA.
     mapping(address => bytes32) internal nextSeeds;
