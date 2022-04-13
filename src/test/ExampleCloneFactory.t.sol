@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: BSD
 pragma solidity ^0.8.4;
 
-import {DSTest} from "ds-test/test.sol";
+import { DSTest } from "ds-test/test.sol";
 
-import {Hevm} from "./utils/Hevm.sol";
-import {ExampleClone} from "../ExampleClone.sol";
-import {ExampleCloneFactory} from "../ExampleCloneFactory.sol";
+import { Hevm } from "./utils/Hevm.sol";
+import { ExampleClone } from "../ExampleClone.sol";
+import { ExampleCloneFactory } from "../ExampleCloneFactory.sol";
 
 contract ExampleCloneFactoryTest is DSTest {
     Hevm internal constant hevm = Hevm(HEVM_ADDRESS);
@@ -25,9 +25,10 @@ contract ExampleCloneFactoryTest is DSTest {
         address param1,
         uint256 param2,
         uint64 param3,
-        uint8 param4
+        bytes32 param4,
+        uint8 param5
     ) public {
-        factory.createClone(param1, param2, param3, param4);
+        factory.createClone(param1, param2, param3, param4, param5);
     }
 
     /// -----------------------------------------------------------------------
@@ -38,17 +39,20 @@ contract ExampleCloneFactoryTest is DSTest {
         address param1,
         uint256 param2,
         uint64 param3,
-        uint8 param4
+        bytes32 param4,
+        uint8 param5
     ) public {
         ExampleClone clone = factory.createClone(
             param1,
             param2,
             param3,
-            param4
+            param4,
+            param5
         );
         assertEq(clone.param1(), param1);
         assertEq(clone.param2(), param2);
         assertEq(clone.param3(), param3);
         assertEq(clone.param4(), param4);
+        assertEq(clone.param5(), param5);
     }
 }

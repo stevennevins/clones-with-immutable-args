@@ -27,9 +27,10 @@ contract Create2ExampleCloneFactoryTest is DSTest {
         address param1,
         uint256 param2,
         uint64 param3,
-        uint8 param4
+        bytes32 param4,
+        uint8 param5
     ) public {
-        factory.createClone(param1, param2, param3, param4);
+        factory.createClone(param1, param2, param3, param4, param5);
     }
 
     /// -----------------------------------------------------------------------
@@ -40,23 +41,26 @@ contract Create2ExampleCloneFactoryTest is DSTest {
         address param1,
         uint256 param2,
         uint64 param3,
-        uint8 param4
+        bytes32 param4,
+        uint8 param5
     ) public {
         address predicted = factory.computeCloneAddress(
             address(implementation),
-            abi.encodePacked(param1, param2, param3, param4)
+            abi.encodePacked(param1, param2, param3, param4, param5)
         );
         console.log(predicted);
         ExampleClone clone = factory.createClone(
             param1,
             param2,
             param3,
-            param4
+            param4,
+            param5
         );
         assertEq(predicted, address(clone));
         assertEq(clone.param1(), param1);
         assertEq(clone.param2(), param2);
         assertEq(clone.param3(), param3);
         assertEq(clone.param4(), param4);
+        assertEq(clone.param5(), param5);
     }
 }

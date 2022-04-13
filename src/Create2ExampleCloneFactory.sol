@@ -19,11 +19,18 @@ contract Create2ExampleCloneFactory {
         address param1,
         uint256 param2,
         uint64 param3,
-        uint8 param4
+        bytes32 param4,
+        uint8 param5
     ) external returns (ExampleClone clone) {
         uint256 seed = nextSeeds[tx.origin]++;
         bytes32 salt = keccak256(abi.encode(tx.origin, seed));
-        bytes memory data = abi.encodePacked(param1, param2, param3, param4);
+        bytes memory data = abi.encodePacked(
+            param1,
+            param2,
+            param3,
+            param4,
+            param5
+        );
         clone = ExampleClone(address(implementation).clone(salt, data));
     }
 
