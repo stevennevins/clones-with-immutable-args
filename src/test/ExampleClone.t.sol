@@ -1,15 +1,11 @@
 // SPDX-License-Identifier: BSD
 pragma solidity ^0.8.4;
 
-import { DSTest } from "ds-test/test.sol";
-
-import { Hevm } from "./utils/Hevm.sol";
+import "forge-std/Test.sol";
 import { ExampleClone } from "../ExampleClone.sol";
 import { ExampleCloneFactory } from "../ExampleCloneFactory.sol";
 
-contract ExampleCloneTest is DSTest {
-    Hevm internal constant hevm = Hevm(HEVM_ADDRESS);
-
+contract ExampleCloneTest is Test {
     ExampleClone internal clone;
     ExampleCloneFactory internal factory;
 
