@@ -72,6 +72,28 @@ contract Clone {
         return arr;
     }
 
+    /// @notice Reads a uint256 array stored in the immutable args.
+    /// @param argOffset The offset of the arg in the packed data
+    /// @param arrLen Number of elements in the array
+    /// @return arr The array
+    function _getArgBytes32Array(uint256 argOffset, uint64 arrLen)
+        internal
+        pure
+        returns (bytes32[] memory arr)
+    {
+        uint256 offset = _getImmutableArgsOffset();
+        bytes32 el;
+        arr = new bytes32[](arrLen);
+        for (uint64 i = 0; i < arrLen; i++) {
+            assembly {
+                // solhint-disable-next-line no-inline-assembly
+                el := calldataload(add(add(offset, argOffset), mul(i, 32)))
+            }
+            arr[i] = el;
+        }
+        return arr;
+    }
+
     /// @notice Reads an immutable arg with type uint64
     /// @param argOffset The offset of the arg in the packed data
     /// @return arg The arg value
