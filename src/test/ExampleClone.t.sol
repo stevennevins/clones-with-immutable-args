@@ -4,21 +4,24 @@ pragma solidity ^0.8.4;
 import "forge-std/Test.sol";
 import { ExampleClone } from "../ExampleClone.sol";
 import { ExampleCloneFactory } from "../ExampleCloneFactory.sol";
+import { Proxy } from "../Proxy.sol";
 
 contract ExampleCloneTest is Test {
     ExampleClone internal clone;
     ExampleCloneFactory internal factory;
+    Proxy internal proxy;
 
     function setUp() public {
         ExampleClone implementation = new ExampleClone();
         factory = new ExampleCloneFactory(implementation);
         clone = factory.createClone(
-            address(this),
+            address(0),
             type(uint256).max,
             8008,
             bytes32(type(uint256).max),
             69
         );
+        proxy = new Proxy(address(clone));
     }
 
     /// -----------------------------------------------------------------------
@@ -26,7 +29,13 @@ contract ExampleCloneTest is Test {
     /// -----------------------------------------------------------------------
 
     function testGas_param1() public view {
-        clone.param1();
+        address param1 = ExampleClone(address(proxy)).param1();
+        address param1_2 = clone.param1();
+        console.log(param1);
+        console.log(param1_2);
+        address owner = ExampleClone(address(proxy)).owner();
+        console.log(owner);
+        console.log(address(this));
     }
 
     function testGas_param2() public view {

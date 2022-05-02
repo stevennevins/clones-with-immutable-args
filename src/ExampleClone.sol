@@ -4,6 +4,9 @@ pragma solidity ^0.8.4;
 import { Clone } from "./Clone.sol";
 
 contract ExampleClone is Clone {
+    address public owner;
+    uint256 public iterator;
+
     function param1() public pure returns (address) {
         return _getArgAddress(0);
     }

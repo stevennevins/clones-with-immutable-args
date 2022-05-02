@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 import "forge-std/Test.sol";
 import { ExampleClone } from "../ExampleClone.sol";
 import { ExampleCloneFactory } from "../ExampleCloneFactory.sol";
+import { Proxy } from "../Proxy.sol";
 
 contract ExampleCloneFactoryTest is Test {
     ExampleCloneFactory internal factory;
