@@ -152,7 +152,7 @@ library Create2ClonesWithImmutableArgs {
         address implementation,
         bytes32 salt,
         bytes memory data
-    ) external returns (address payable instance) {
+    ) internal returns (address payable instance) {
         (uint256 creationPtr, uint256 creationSize) = cloneCreationCode(
             implementation,
             data
